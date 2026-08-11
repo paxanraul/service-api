@@ -1,0 +1,17 @@
+# FastAPI and data validation
+fastapi[standard]
+pydantic[email]
+
+# Database and migrations
+sqlalchemy
+alembic
+psycopg[binary]
+
+# Authentication and environment variables
+bcrypt
+PyJWT[crypto]
+python-dotenv
+
+# Testing
+pytest
+httpx
