@@ -16,3 +16,9 @@ class ProductRead(BaseModel):
 	description: str | None = None
 
 	model_config = ConfigDict(from_attributes=True)
+
+
+class ProductUpdate(BaseModel):
+	name: str | None = None
+	price: Decimal | None = None
+	description: str | None = None
