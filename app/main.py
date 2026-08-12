@@ -4,12 +4,13 @@ from sqlalchemy.orm import Session
 
 from app.dependencies import get_db
 from app.models import Product
+from app.schemas import ProductRead
 
 
 app = FastAPI(title="Service API")
 
 
-@app.get("/products")
+@app.get("/products", response_model=list[ProductRead])
 def get_products(db: Session = Depends(get_db)):
 	statement = select(Product)
 	products = db.scalars(statement).all()
