@@ -1,6 +1,6 @@
 from decimal import Decimal
 
-from pydantic import BaseModel
+from pydantic import BaseModel, ConfigDict
 
 
 class ProductCreate(BaseModel):
@@ -14,3 +14,5 @@ class ProductRead(BaseModel):
 	name: str
 	price: Decimal
 	description: str | None = None
+
+	model_config = ConfigDict(from_attributes=True)
