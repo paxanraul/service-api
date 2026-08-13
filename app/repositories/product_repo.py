@@ -24,9 +24,15 @@ def create_product_repo(product_data: ProductCreate, db: Session):
 		price=product_data.price,
 		description=product_data.description,
 	)
-	db.add(product)
-	db.commit()
-	db.refresh(product)
+
+
+	try:
+		db.add(product)
+		db.commit()
+		db.refresh(product)	
+	except Exception:
+		db.rollback()
+		raise
 
 	return product
 
@@ -38,8 +44,12 @@ def delete_product_repo(product_id: int, db: Session):
 	if product is None:
 		return None
 
-	db.delete(product)
-	db.commit()
+	try:
+		db.delete(product)
+		db.commit()
+	except Exception:
+		db.rollback()
+		raise
 
 	return product
 
@@ -59,8 +69,12 @@ def update_product_repo(data: ProductUpdate, product_id: int, db: Session):
 	if data.description is not None:
 		product.description = data.description
 
-	db.commit()
-	db.refresh(product)
+	try:
+		db.commit()
+		db.refresh(product)
+	except Exception:
+		db.rollback()
+		raise
 
 	return product
 	
