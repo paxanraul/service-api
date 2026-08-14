@@ -1,6 +1,6 @@
 from sqlalchemy import select
 from sqlalchemy.orm import Session
-from app.models import Product
+from app.models.models import Product
 
 
 def get_all_products(db: Session):

@@ -1,7 +1,7 @@
 from sqlalchemy import select
 
 from app.db import SessionLocal
-from app.models import Product
+from app.models.models import Product
 
 
 with SessionLocal() as session:

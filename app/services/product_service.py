@@ -1,6 +1,6 @@
 from sqlalchemy.orm import Session
 
-from app.models import Product
+from app.models.models import Product
 from app.schemas import ProductCreate, ProductUpdate
 from app.repositories.product_repo import create_product_repo, get_product_by_id_repo, save_product_repo
 
