@@ -1,7 +1,6 @@
 from sqlalchemy import select
 from sqlalchemy.orm import Session
 from app.models import Product
-from app.schemas import ProductCreate, ProductUpdate
 
 
 def get_all_products(db: Session):
@@ -18,14 +17,7 @@ def get_product_by_id_repo(product_id: int, db: Session):
 	return product
 
 
-def create_product_repo(product_data: ProductCreate, db: Session):
-	product = Product(
-		name=product_data.name,
-		price=product_data.price,
-		description=product_data.description,
-	)
-
-
+def create_product_repo(product: Product, db: Session):
 	try:
 		db.add(product)
 		db.commit()
@@ -53,22 +45,21 @@ def delete_product_repo(product_id: int, db: Session):
 
 	return product
 
-def update_product_repo(data: ProductUpdate, product_id: int, db: Session):
+def update_product_repo(product_id: int, db: Session):
 	statement = select(Product).where(Product.id == product_id)
 	product = db.scalar(statement)
 
-	if product is None:
-		return None
+	try:
+		db.commit()
+		db.refresh(product)
+	except Exception:
+		db.rollback()
+		raise
 
-	if data.name is not None:
-		product.name = data.name
+	return product
 
-	if data.price is not None:
-		product.price = data.price
 
-	if data.description is not None:
-		product.description = data.description
-
+def save_product_repo(product: Product, db: Session):
 	try:
 		db.commit()
 		db.refresh(product)
