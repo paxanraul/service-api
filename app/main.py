@@ -18,8 +18,8 @@ app = FastAPI(title="Service API")
 
 
 @app.get("/products", response_model=list[ProductRead])
-def get_products(db: Session = Depends(get_db)):
-	return get_all_products(db)
+def get_products(db: Session = Depends(get_db), limit: int = 5, offset: int = 0):
+	return get_all_products(db, limit, offset)
 
 
 @app.get("/products/{product_id}", response_model=ProductRead)
