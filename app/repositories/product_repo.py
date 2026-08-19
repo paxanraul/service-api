@@ -3,8 +3,8 @@ from sqlalchemy.orm import Session
 from app.models.models import Product
 
 
-def get_all_products(db: Session):
-	statement = select(Product)
+def get_all_products(db: Session, limit: int = 5, offset: int = 0):
+	statement = select(Product).order_by(Product.price.desc()).limit(limit).offset(offset)
 	products = db.scalars(statement).all()
 
 	return products
