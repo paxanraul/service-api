@@ -1,10 +1,30 @@
 from sqlalchemy import select
 from sqlalchemy.orm import Session
+from decimal import Decimal
+
 from app.models.models import Product
 
 
-def get_all_products(db: Session, limit: int = 5, offset: int = 0):
-	statement = select(Product).order_by(Product.price.desc()).limit(limit).offset(offset)
+def get_all_products(
+		db: Session, 
+		limit: int = 5, 
+		offset: int = 0, 
+		min_price: Decimal | None = None, 
+		max_price: Decimal | None = None,
+		name: str | None = None
+):
+	statement = select(Product)
+
+	if min_price is not None:
+		statement = statement.where(Product.price >= min_price)
+
+	if max_price is not None:
+		statement = statement.where(Product.price <= max_price)
+
+	if name is not None:
+		statement = statement.where(Product.name.ilike(f"%{name}%"))
+
+	statement = statement.order_by(Product.price.desc()).limit(limit).offset(offset)
 	products = db.scalars(statement).all()
 
 	return products
