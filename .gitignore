@@ -4,6 +4,6 @@ __pycache__/
 venv/
 md/
 .pytest_cache/
-.DS_Store/
+.DS_Store
 .vscode/
 tmp/
