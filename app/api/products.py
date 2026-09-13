@@ -37,7 +37,7 @@ def get_products(
 	return get_all_products(db, limit, offset, min_price, max_price, name)
 
 
-@router.get("", response_model=ProductStats)
+@router.get("/stats", response_model=ProductStats)
 def get_product_stats(db: Session = Depends(get_db)):
     return get_product_stats_repo(db)
 
