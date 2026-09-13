@@ -22,3 +22,9 @@ class ProductUpdate(BaseModel):
 	name: str | None = Field(default=None, min_length=1, max_length=20)
 	price: Decimal | None = Field(default=None, gt=0)
 	description: str | None = Field(default=None, max_length=150)
+
+
+class ProductStats(BaseModel):
+	total: int
+	min_price: Decimal | None = None
+	max_price: Decimal | None = None
