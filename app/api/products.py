@@ -3,11 +3,12 @@ from sqlalchemy.orm import Session
 from decimal import Decimal
 
 from app.dependencies import get_db
-from app.schemas import ProductRead, ProductCreate, ProductUpdate
+from app.schemas import ProductRead, ProductCreate, ProductUpdate, ProductStats
 from app.repositories.product_repo import (
 	get_all_products, 
 	get_product_by_id_repo, 
 	delete_product_repo,
+	get_product_stats_repo
 )
 from app.services.product_service import (
 	create_product_service, 
@@ -34,6 +35,11 @@ def get_products(
 			)
 	
 	return get_all_products(db, limit, offset, min_price, max_price, name)
+
+
+@router.get("", response_model=ProductStats)
+def get_product_stats(db: Session = Depends(get_db)):
+    return get_product_stats_repo(db)
 
 
 @router.get("/{product_id}", response_model=ProductRead)
