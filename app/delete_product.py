@@ -1,7 +1,7 @@
 from sqlalchemy import select, delete
 
 from app.db import SessionLocal
-from app.models.models import Product
+from app.models.product import Product
 
 
 with SessionLocal() as session:

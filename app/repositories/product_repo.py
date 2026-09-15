@@ -2,7 +2,7 @@ from sqlalchemy import select, func
 from sqlalchemy.orm import Session
 from decimal import Decimal
 
-from app.models.models import Product
+from app.models.product import Product
 
 
 def get_all_products(
