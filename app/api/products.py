@@ -3,7 +3,7 @@ from sqlalchemy.orm import Session
 from decimal import Decimal
 
 from app.dependencies import get_db
-from app.schemas import ProductRead, ProductCreate, ProductUpdate, ProductStats
+from app.schemas.product import ProductRead, ProductCreate, ProductUpdate, ProductStats
 from app.repositories.product_repo import (
 	get_all_products, 
 	get_product_by_id_repo, 

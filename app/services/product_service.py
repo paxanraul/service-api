@@ -1,7 +1,7 @@
 from sqlalchemy.orm import Session
 
 from app.models.product import Product
-from app.schemas import ProductCreate, ProductUpdate
+from app.schemas.product import ProductCreate, ProductUpdate
 from app.repositories.product_repo import create_product_repo, get_product_by_id_repo, save_product_repo
 
 
