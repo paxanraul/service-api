@@ -3,10 +3,16 @@ from sqlalchemy.orm import Session
 
 from app.dependencies import get_db
 from app.schemas.user import UserRegister, UserResponse
+from app.repositories.user_repo import get_all_users_repo
 from app.services.user_service import create_user_service
 
 
 router = APIRouter(prefix="/users", tags=["users"])
+
+
+@router.get("", response_model=list[UserResponse])
+def get_users(db: Session = Depends(get_db)):
+    return get_all_users_repo(db)
 
 
 @router.post("", status_code=status.HTTP_201_CREATED, response_model=UserResponse)
